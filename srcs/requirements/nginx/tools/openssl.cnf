@@ -1,0 +1,16 @@
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+commonName = lfarias-.42.fr 
+organizationName = 42Rio 
+organizationalUnitName = Ecole
+localityName = 42Rio
+stateOrProvinceName = Rio de Janeiro 
+countryName = BR 
+
+[v3_req]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment

@@ -1,0 +1,27 @@
+services:
+  mariadb:
+    build:
+      context: ./srcs/requirements/mariadb/
+      dockerfile: Dockerfile 
+    container_name: mariadb
+    volumes:
+      - ${HOME}/database/:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    env_file: .env
+    restart: always
+    networks: 
+      - inception
+  nginx:
+    build:
+      context: ./srcs/requirements/nginx/
+      dockerfile: Dockerfile 
+    container_name: nginx
+    ports:
+      - "443:443"
+    env_file: .env
+    restart: always
+    networks: 
+      - inception
+networks:
+  inception:
