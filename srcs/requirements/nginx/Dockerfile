@@ -8,16 +8,15 @@ RUN     apk add nginx openssl
 
 # setting up the user
 RUN     adduser -D -g 'www' www
-RUN     mkdir /www
+RUN     mkdir -p mkdir /var/www/html
 RUN     chown -R www:www /var/lib/nginx
-RUN     chown -R www:www /www
+RUN     chown -R www:www /var/www/html
 
 COPY    ./tools/openssl.cnf .
 COPY    ./tools/create_certs.sh .
 RUN     ./create_certs.sh
 RUN     rm -rf ./create_certs.sh ./openssl.cnf ./create_certs.sh
-COPY    ./config/nginx.conf ./etc/nginx/
-COPY    ./tools/index.html ./www/
+COPY    ./config/lfarias-.42.fr.conf /etc/nginx/http.d/lfarias-.42.fr.conf
 
 EXPOSE  443
 CMD     ["nginx", "-g", "daemon off;"]
