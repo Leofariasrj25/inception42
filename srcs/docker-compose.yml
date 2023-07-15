@@ -6,7 +6,7 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/15 03:08:09 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/15 04:16:45 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/15 20:29:52 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,11 @@ services:
       - 3306:3306
     env_file: .env
     restart: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=${MARIADB_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
     networks: 
       - inception
   nginx:
@@ -35,7 +40,8 @@ services:
     volumes:
       - www:/var/www/html
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
     env_file: .env
     restart: unless-stopped
     networks: 
@@ -50,9 +56,15 @@ services:
     ports:
       - 9000
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     env_file: .env
     restart: unless-stopped
+    healthcheck:
+      test: "/usr/local/bin/wp core is-installed --allow-root --path=/var/www/html"
+      interval: 2s
+      timeout: 600s
+      retries: 300 
     networks: 
       - inception
 volumes:

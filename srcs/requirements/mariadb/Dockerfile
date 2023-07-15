@@ -4,7 +4,7 @@ FROM alpine:3.17.4
 
 # ==== mandatory =====
 RUN     apk update;
-RUN     apk add mariadb mariadb-client mariadb-common mariadb-server-utils
+RUN     apk add mariadb mariadb-client mariadb-common mariadb-server-utils bash vim
 RUN     rm -f /etc/mysql/my.cnf /etc/my.cf ~/my.cf
 
 # ==== config =====

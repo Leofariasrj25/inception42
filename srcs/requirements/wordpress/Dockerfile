@@ -5,7 +5,7 @@ FROM    debian:buster
 # ==== prerequesites ====
 RUN     apt update -y && apt upgrade -y 
 RUN     apt install php php-fpm php-mysql php-gd php-curl php-zip \
-                    php-json php-xml openssl php-mbstring php-intl -y
+                    php-json php-xml openssl php-mbstring php-intl vim -y
 RUN     apt install wget curl -y
 
 # ==== setup ====

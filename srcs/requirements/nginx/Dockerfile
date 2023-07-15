@@ -4,7 +4,7 @@ FROM    alpine:3.17.4
 
 # requirements
 RUN     apk update
-RUN     apk add nginx openssl
+RUN     apk add nginx openssl bash vim
 
 # setting up the user
 RUN     mkdir -p mkdir /var/www/html
