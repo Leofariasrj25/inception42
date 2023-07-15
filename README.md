@@ -19,8 +19,10 @@ A project focused on learning about containers and how to build your own docker 
 ## Getting Started
 
 ```git
-git clone https://github.com/Leofariasrj25/inception42 && cd inception42 && make build
+git clone https://github.com/Leofariasrj25/inception42 && cd innception42
 ```
+- open ./srcs/.env in a text editor of your choice and add your credentials and save them.
+- run `make build` 
 - Access https://localhost:443 (note: the certificate is a self-emitted one, you can ignore the warning)
 
 ## Running
