@@ -1,3 +1,16 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    docker-compose.yml                                 :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/07/15 03:08:09 by lfarias-          #+#    #+#              #
+#    Updated: 2023/07/15 04:16:45 by lfarias-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+version: '3'
 services:
   mariadb:
     build:
@@ -5,11 +18,11 @@ services:
       dockerfile: Dockerfile 
     container_name: mariadb
     volumes:
-      - ${HOME}/database/:/var/lib/mysql
+      - database:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - 3306:3306
     env_file: .env
-    restart: always
+    restart: unless-stopped
     networks: 
       - inception
   nginx:
@@ -18,10 +31,44 @@ services:
       dockerfile: Dockerfile 
     container_name: nginx
     ports:
-      - "443:443"
+      - 443:443
+    volumes:
+      - www:/var/www/html
+    depends_on:
+      - wordpress
     env_file: .env
-    restart: always
+    restart: unless-stopped
     networks: 
       - inception
+  wordpress:
+    build:
+      context: ./srcs/requirements/wordpress/
+      dockerfile: Dockerfile 
+    container_name: wordpress
+    volumes:
+      - www:/var/www/html
+    ports:
+      - 9000
+    depends_on:
+      - mariadb
+    env_file: .env
+    restart: unless-stopped
+    networks: 
+      - inception
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUME_WWW_PATH}
+      o: bind
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUME_DB_PATH} 
+      o: bind
 networks:
-  inception:
+  inception: 
+    name: inception
+    driver: bridge

@@ -4,14 +4,19 @@ FROM    debian:buster
 
 # ==== prerequesites ====
 RUN     apt update -y && apt upgrade -y 
-RUN     apt install php php-fpm php-mysql php-gd php-curl php-zip -y
+RUN     apt install php php-fpm php-mysql php-gd php-curl php-zip \
+                    php-json php-xml openssl php-mbstring php-intl -y
 RUN     apt install wget curl -y
 
 # ==== setup ====
-RUN     mkdir -p /var/www/
-RUN		mkdir -p /var/www/html
-# RUN		adduser -u 82 -D -S -G www-data www-data
-# RUN		chmod 777 -R /var/www/html
-# RUN		chown -R www-data:www-data /var/www/html
+COPY	conf/wp-pool.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY    ./conf/wp-config.php .
+COPY    ./tools/wp-setup.sh .   
 
+RUN		mkdir -p /var/www/html
+RUN		chmod 777 -R /var/www/html
+RUN		chown -R www-data:www-data /var/www/html
+
+RUN     chmod +x ./wp-setup.sh 
+ENTRYPOINT ["./wp-setup.sh"]
 EXPOSE 9000

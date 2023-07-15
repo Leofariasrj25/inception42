@@ -1,22 +1,23 @@
 <?php
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv("MARIADB_DATABASE"));
+define( "DB_NAME", getenv("MARIADB_DATABASE"));
 
 /** Database username */
-define( 'DB_USER', getenv("MARIADB_USER"));
+define( "DB_USER", getenv("MARIADB_USER"));
 
 /** Database password */
-define( 'DB_PASSWORD', getenv("MARIADB_USER_PASS"));
+define( "DB_PASSWORD", getenv("MARIADB_USER_PASS"));
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( "DB_HOST", getenv("MARIADB_HOST") . ":3306");
+#define( "DB_HOST', "127.0.0.1:3306");
 
 /** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', getenv("MARIADB_CHARSET"));
+define( "DB_CHARSET", getenv("MARIADB_CHARSET"));
 
 /** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+define( "DB_COLLATE", getenv("MARIADB_COLLATION"));
 
 define( 'AUTH_KEY',          getenv("WP_AUTH_KEY"));
 define( 'SECURE_AUTH_KEY',   getenv("WP_SECURE_AUTH_KEY"));
