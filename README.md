@@ -19,9 +19,9 @@ A project focused on learning about containers and how to build your own docker 
 ## Getting Started
 
 ```git
-git clone https://github.com/Leofariasrj25/inception42 && cd innception42
+git clone https://github.com/Leofariasrj25/inception42 && cd inception42
 ```
-- open ./srcs/.env in a text editor of your choice and add your credentials and save them.
+- open `./srcs/.env` in a text editor of your choice and [add your credentials](#credentials), save them, close the editor
 - run `make build` 
 - Access https://localhost:443 (note: the certificate is a self-emitted one, you can ignore the warning)
 
@@ -33,6 +33,10 @@ once everything is set up a website can be accessed at https://localhost:443
 - `make start` - restart the infrastructure
 
 - `make stop` - will stop all the containers, they can be reactivated with `make start`
+
+## <a id="credentials"> Add your Credentials
+Even if this is a student project, you should never expose your API keys and credentials to the world if they grant access to sensitive data. [more info on this topic](https://www.freecodecamp.org/news/how-to-securely-store-api-keys-4ff3ea19ebda).
+To follow this, the .env file located in ./srcs/ has only the environment variables, feel free to remove the comments and add the values that make the most sense to you.
 
 ## Deep-dive
 
