@@ -3,10 +3,22 @@
 FROM    debian:buster
 
 # ==== prerequesites ====
-RUN     apt update -y && apt upgrade -y 
-RUN     apt install php php-fpm php-mysql php-gd php-curl php-zip \
-                    php-json php-xml openssl php-mbstring php-intl vim -y
-RUN     apt install wget curl -y
+RUN     set -eux; \ 
+        apt-get update && apt-get install -y php php-fpm \
+                                      php-mysql \
+                                      php-gd \
+                                      php-curl \
+                                      php-zip \
+                                      php-json \
+                                      php-xml \
+                                      openssl \
+                                      php-mbstring \
+                                      php-intl \
+                                      vim \
+                                      curl \
+                                      wget \
+                                      ; \
+        rm -rf /var/lib/apt/lists/*
 
 # ==== setup ====
 COPY	conf/wp-pool.conf /etc/php/7.3/fpm/pool.d/www.conf
