@@ -21,6 +21,10 @@ cp ./wp-config.php /var/www/html/wp-config.php
 /usr/local/bin/wp	user create --allow-root --path="/var/www/html" \
 					${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD}
 
+# redis bonus
+/usr/local/bin/wp   plugin install --allow-root redis-cache --activate --path="/var/www/html" && \
+    cp /var/www/html/wp-content/plugins/redis-cache/includes/object-cache.php /var/www/html/wp-content/object-cache.php
+
 # ensuring the socket is present
 mkdir -p /run/php/ && touch /run/php/php7.3-fpm.sock
 chown -R www-data:www-data /run/php/

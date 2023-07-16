@@ -30,6 +30,22 @@ define( 'NONCE_SALT',        getenv("WP_NONCE_SALT"));
 
 /**#@-*/
 
+# === BONUS - redis
+// adjust Redis host and port if necessary 
+define( 'WP_REDIS_HOST', getenv("REDIS_HOST") );
+define( 'WP_REDIS_PORT', getenv("REDIS_PORT"));
+
+// change the prefix and database for each site to avoid cache data collisions
+define( 'WP_REDIS_PREFIX', getenv("WP_DOMAIN") );
+define( 'WP_REDIS_DATABASE', 0 ); // 0-15
+
+// reasonable connection and read+write timeouts
+define( 'WP_REDIS_TIMEOUT', 1 );
+define( 'WP_REDIS_READ_TIMEOUT', 1 );
+
+define('WP_CACHE', true);
+define('WP_CACHE_KEY_SALT', 'inception');
+
 /**
  * WordPress database table prefix.
  *
@@ -50,7 +66,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 

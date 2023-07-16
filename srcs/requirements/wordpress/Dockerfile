@@ -11,6 +11,7 @@ RUN     set -eux; \
                                       php-zip \
                                       php-json \
                                       php-xml \
+                                      php-redis \
                                       openssl \
                                       php-mbstring \
                                       php-intl \
