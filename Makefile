@@ -6,7 +6,7 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 02:20:57 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/15 18:52:51 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/16 04:50:29 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ FILE 		= 	./srcs/docker-compose.yml
 DATA_DIR 	= 	$(HOME)/data
 WWW_DIR 	=	$(addsuffix /www/, $(DATA_DIR))
 DB_DIR 		=	$(addsuffix /database/, $(DATA_DIR))
+AD_DIR		=   $(addsuffix /ad/, $(DATA_DIR))
 
 SERVICES  	= 	wordpress mariadb nginx
 
@@ -27,6 +28,7 @@ ${NAME}: build
 build: ${FILE}
 	@mkdir -p ${WWW_DIR}
 	@mkdir -p ${DB_DIR}
+	@mkdir -p ${AD_DIR}
 	@docker compose -f ${FILE} up -d --build
 
 start: ${FILE}
@@ -57,5 +59,6 @@ fclean:
 	@docker compose -f ${FILE} down --rmi "all" --volumes
 	@sudo rm -rf ${WWW_DIR}
 	@sudo rm -rf ${DB_DIR}
+	@sudo rm -rf ${AD_DIR}
 
 .PHONY: all inception build start status run clean fclean re

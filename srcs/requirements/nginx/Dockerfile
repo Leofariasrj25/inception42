@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Dockerfile                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/07/16 13:26:31 by lfarias-          #+#    #+#              #
+#    Updated: 2023/07/16 16:22:36 by lfarias-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # syntax=docker/dockerfile:1
 
 FROM    alpine:3.17.4
@@ -12,7 +24,9 @@ RUN     set -eux; \
 # setting up the user
 RUN     set -eux; \
         mkdir -p /var/www/html; \
-        chown -R nginx:nginx /var/www
+        mkdir -p /var/www/html/adminer; \
+        adduser -u 82 -S -D -G www-data www-data; \
+        chown -R www-data:www-data /var/www
 
 COPY    ./tools/openssl.cnf .
 COPY    ./tools/create_certs.sh .
@@ -22,6 +36,8 @@ RUN     set -eux; \
         rm -rf ./create_certs.sh ./openssl.cnf ./create_certs.sh
 
 COPY    ./config/lfarias-.42.fr.conf /etc/nginx/http.d/default.conf
+COPY    ./config/adminer.conf /etc/nginx/http.d/adminer.conf
 
 EXPOSE  443
+EXPOSE  80
 CMD     ["nginx", "-g", "daemon off;"]
