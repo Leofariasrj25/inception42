@@ -2,6 +2,8 @@
 
 FROM debian:buster
 
+ENV ADMINER_DOMAIN=${ADMINER_DOMAIN}
+
 RUN set -eux; \
     apt-get update; \
     apt-get install -y adminer php\
@@ -29,8 +31,8 @@ RUN     set -eux; \
 
 COPY    --chmod=755 ./conf/entrypoint.sh /tmp/entrypoint.sh
 
-RUN mkdir /var/www/html/adminer
-WORKDIR /var/www/html/adminer
+RUN mkdir -v -p /var/www/html/$ADMINER_DOMAIN
+WORKDIR /var/www/html/
 
 EXPOSE 8888
 ENTRYPOINT ["/tmp/entrypoint.sh"]

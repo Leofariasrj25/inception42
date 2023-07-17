@@ -6,13 +6,16 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/16 13:26:31 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/17 10:33:28 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/17 11:59:35 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # syntax=docker/dockerfile:1
 
 FROM    alpine:3.17.4
+
+ENV WP_DOMAIN=${WP_DOMAIN}
+ENV ADMINER_DOMAIN=${ADMINER_DOMAIN}
 
 # requirements
 RUN     set -eux; \
@@ -23,10 +26,11 @@ RUN     set -eux; \
 
 # setting up the user
 RUN     set -eux; \
-        mkdir -p /var/www/html; \
-        mkdir -p /var/www/html/adminer; \
+        mkdir -p /var/www/html/$WP_DOMAIN; \
+        mkdir -p /var/www/html/$ADMINER_DOMAIN; \
         adduser -u 82 -S -D -G www-data www-data; \
-        chown -R www-data:www-data /var/www
+        chown -R www-data:www-data /var/www/$WP_DOMAIN; \
+        chown -R www-data:www-data /var/www/$ADMINER_DOMAIN
 
 COPY    ./tools/openssl.cnf .
 COPY    ./tools/create_certs.sh .
