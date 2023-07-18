@@ -111,6 +111,20 @@ services:
     networks: 
     - inception
 
+  jekyll:
+    build:
+      context: ./srcs/requirements/bonus/jekyll
+      dockerfile: Dockerfile 
+    container_name: jekyll
+    env_file: .env
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    depends_on:
+      - nginx
+    networks: 
+      - inception
+
 volumes:
   www:
     driver: local
