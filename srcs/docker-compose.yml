@@ -92,6 +92,25 @@ services:
     networks: 
       - inception
 
+  ftp:
+    env_file: .env
+    build:
+      context: ./srcs/requirements/bonus/ftp
+      dockerfile: Dockerfile 
+    container_name: ftp
+    volumes:
+      - www:/home/${WP_USER}/ftp/files
+    restart: unless-stopped
+    ports:
+      - 20-21:20-21
+      - 990:990
+      - 10090-10100:10090-10100
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    networks: 
+    - inception
+
 volumes:
   www:
     driver: local
