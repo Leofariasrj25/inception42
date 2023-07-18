@@ -125,6 +125,44 @@ services:
     networks: 
       - inception
 
+  cadvisor:
+    build:
+      context: ./srcs/requirements/bonus/cadvisor
+      dockerfile: Dockerfile 
+    container_name: cadvisor
+    ports:
+      - 8080:8080 
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro 
+      - /sys:/sys:ro 
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks: 
+      - inception
+
+  prometheus:
+    build:
+      context: ./srcs/requirements/bonus/prometheus
+      dockerfile: Dockerfile 
+    container_name: prometheus
+    ports:
+      - 9090:9090 
+    restart: unless-stopped
+    networks: 
+      - inception
+
+  grafana:
+    build:
+      context: ./srcs/requirements/bonus/grafana
+      dockerfile: Dockerfile 
+    container_name: grafana
+    ports:
+      - 3000:3000 
+    restart: unless-stopped
+    networks: 
+      - inception
+
 volumes:
   www:
     driver: local
