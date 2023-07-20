@@ -152,8 +152,8 @@ services:
       dockerfile: Dockerfile 
     container_name: prometheus
     depends_on:
-      - cadvisor:
-          condition: service_healthy
+      cadvisor:
+        condition: service_healthy
     ports:
       - 9090:9090 
     healthcheck:
@@ -170,9 +170,9 @@ services:
       context: ./srcs/requirements/bonus/grafana
       dockerfile: Dockerfile 
     container_name: grafana
-    depends-on:
-      - prometheus:
-          condition: service_healthy
+    depends_on:
+      prometheus:
+        condition: service_healthy
     ports:
       - 3000:3000 
     restart: unless-stopped
