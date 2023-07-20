@@ -132,6 +132,11 @@ services:
     container_name: cadvisor
     ports:
       - 8080:8080 
+    healthcheck:
+      test: "netstat -an | grep 8080 > /dev/null; if [ 0 != $? ]; then exit 1; fi;"
+      interval: 2s
+      timeout: 600s
+      retries: 300 
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
@@ -146,8 +151,16 @@ services:
       context: ./srcs/requirements/bonus/prometheus
       dockerfile: Dockerfile 
     container_name: prometheus
+    depends-on:
+      - cadvisor:
+          condition: service_healthy
     ports:
       - 9090:9090 
+    healthcheck:
+      test: "netstat -an | grep 9090 > /dev/null; if [ 0 != $? ]; then exit 1; fi;"
+      interval: 2s
+      timeout: 600s
+      retries: 300 
     restart: unless-stopped
     networks: 
       - inception
@@ -157,6 +170,9 @@ services:
       context: ./srcs/requirements/bonus/grafana
       dockerfile: Dockerfile 
     container_name: grafana
+    depends-on:
+      - prometheus:
+          condition: service_healthy
     ports:
       - 3000:3000 
     restart: unless-stopped
