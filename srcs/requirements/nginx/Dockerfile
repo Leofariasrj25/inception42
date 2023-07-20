@@ -6,7 +6,7 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/16 13:26:31 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/18 03:32:37 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/20 14:39:59 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ RUN     set -eux; \
 COPY    ./config/lfarias-.42.fr.conf /etc/nginx/http.d/default.conf
 COPY    ./config/adminer.conf /etc/nginx/http.d/adminer.conf
 COPY    ./config/profile.conf /etc/nginx/http.d/profile.conf
+COPY    ./config/grafana.conf /etc/nginx/http.d/grafana.conf
 
 EXPOSE  443
 EXPOSE  80
