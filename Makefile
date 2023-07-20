@@ -6,7 +6,7 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 02:20:57 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/19 18:33:58 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/20 13:47:57 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FILE 		= 	./srcs/docker-compose.yml
 DATA_DIR 	= 	$(HOME)/data
 WWW_DIR 	=	$(addsuffix /www/, $(DATA_DIR))
 DB_DIR 		=	$(addsuffix /database/, $(DATA_DIR))
-AD_DIR		=   $(addsuffix /dbadminer/, $(DATA_DIR))
+AD_DIR		=   	$(addsuffix /dbadminer/, $(DATA_DIR))
 
 SERVICES  	= 	wordpress mariadb nginx
 

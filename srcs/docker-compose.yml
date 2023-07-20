@@ -151,7 +151,7 @@ services:
       context: ./srcs/requirements/bonus/prometheus
       dockerfile: Dockerfile 
     container_name: prometheus
-    depends-on:
+    depends_on:
       - cadvisor:
           condition: service_healthy
     ports:
