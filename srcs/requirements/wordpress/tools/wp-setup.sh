@@ -25,6 +25,9 @@ cp ./wp-config.php /var/www/html/${WP_DOMAIN}/wp-config.php
 /usr/local/bin/wp   plugin install --allow-root redis-cache --activate --path="/var/www/html/${WP_DOMAIN}" && \
     cp /var/www/html/${WP_DOMAIN}/wp-content/plugins/redis-cache/includes/object-cache.php /var/www/html/${WP_DOMAIN}/wp-content/object-cache.php
 
+# theme
+/usr/local/bin/wp theme install "blocksy" --allow-root --path="/var/www/html/${WP_DOMAIN}" --activate 
+
 # ensuring the socket is present
 mkdir -p /run/php/ && touch /run/php/php7.3-fpm.sock
 chown -R www-data:www-data /run/php/

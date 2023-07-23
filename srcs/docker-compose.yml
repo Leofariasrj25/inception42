@@ -5,7 +5,7 @@ services:
 
   mariadb:
     build:
-      context: ./srcs/requirements/mariadb/
+      context: ./requirements/mariadb/
       dockerfile: Dockerfile 
     container_name: mariadb
     volumes:
@@ -24,7 +24,7 @@ services:
 
   nginx:
     build:
-      context: ./srcs/requirements/nginx/
+      context: ./requirements/nginx/
       dockerfile: Dockerfile 
     container_name: nginx
     ports:
@@ -43,7 +43,7 @@ services:
 
   wordpress:
     build:
-      context: ./srcs/requirements/wordpress/
+      context: ./requirements/wordpress/
       dockerfile: Dockerfile 
     container_name: wordpress
     volumes:
@@ -65,7 +65,7 @@ services:
 
   redis:
     build:
-      context: ./srcs/requirements/bonus/redis
+      context: ./requirements/bonus/redis
       dockerfile: Dockerfile 
     container_name: redis
     ports:
@@ -77,7 +77,7 @@ services:
 
   adminer:
     build:
-      context: ./srcs/requirements/bonus/adminer
+      context: ./requirements/bonus/adminer
       dockerfile: Dockerfile 
     container_name: adminer
     volumes:
@@ -95,7 +95,7 @@ services:
   ftp:
     env_file: .env
     build:
-      context: ./srcs/requirements/bonus/ftp
+      context: ./requirements/bonus/ftp
       dockerfile: Dockerfile 
     container_name: ftp
     volumes:
@@ -113,7 +113,7 @@ services:
 
   jekyll:
     build:
-      context: ./srcs/requirements/bonus/jekyll
+      context: ./requirements/bonus/jekyll
       dockerfile: Dockerfile 
     container_name: jekyll
     env_file: .env
@@ -122,12 +122,17 @@ services:
       - 4000:4000
     depends_on:
       - nginx
+    healthcheck:
+      test: "netstat -an | grep 4000 > /dev/null; if [ 0 != $? ]; then exit 1; fi;"
+      interval: 2s
+      timeout: 600s
+      retries: 300 
     networks: 
       - inception
 
   cadvisor:
     build:
-      context: ./srcs/requirements/bonus/cadvisor
+      context: ./requirements/bonus/cadvisor
       dockerfile: Dockerfile 
     container_name: cadvisor
     ports:
@@ -148,7 +153,7 @@ services:
 
   prometheus:
     build:
-      context: ./srcs/requirements/bonus/prometheus
+      context: ./requirements/bonus/prometheus
       dockerfile: Dockerfile 
     container_name: prometheus
     depends_on:
@@ -167,7 +172,7 @@ services:
 
   grafana:
     build:
-      context: ./srcs/requirements/bonus/grafana
+      context: ./requirements/bonus/grafana
       dockerfile: Dockerfile 
     container_name: grafana
     depends_on:

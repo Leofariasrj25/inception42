@@ -6,20 +6,20 @@
 #    By: lfarias- <lfarias-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 02:20:57 by lfarias-          #+#    #+#              #
-#    Updated: 2023/07/20 17:37:32 by lfarias-         ###   ########.fr        #
+#    Updated: 2023/07/22 23:00:50 by lfarias-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= 	inception
+NAME 		= 		inception
 
-FILE 		= 	./srcs/docker-compose.yml
+FILE 		= 		./srcs/docker-compose.yml
 
-DATA_DIR 	= 	/home/lfarias-/data
-WWW_DIR 	=       /home/lfarias-/data/www	
-DB_DIR 		=       /home/lfarias-/data/database	
-AD_DIR		=       /home/lfarias-/data/dbadmin	
+DATA_DIR 	= 		/home/${HOME}/data
+WWW_DIR 	=      	$(addsuffix /www/, ${DATA_DIR}) 	
+DB_DIR 		=       $(addsuffix /database/, ${DATA_DIR}) 
+AD_DIR		=      	$(addsuffix /dbadmin/, ${DATA_DIR}) 
 
-SERVICES  	= 	wordpress mariadb nginx jekyll adminer cadvisor prometheus grafana
+SERVICES  	= 		wordpress mariadb nginx jekyll adminer cadvisor prometheus grafana
 
 all: build
 
